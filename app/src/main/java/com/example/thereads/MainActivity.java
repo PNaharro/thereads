@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         loadImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Al hacer clic en el botón, cargamos una imagen aleatoria
                 loadRandomImage();
             }
         });
@@ -61,11 +60,9 @@ public class MainActivity extends AppCompatActivity {
                         response.append(line);
                     }
 
-                    // Analizar el JSON
+
                     JSONObject jsonObject = new JSONObject(response.toString());
                     String imageUrl = jsonObject.getString("image");
-
-                    // Descargar y mostrar la imagen en el hilo principal
                     loadAndDisplayImage(imageUrl);
                 } else {
                     Log.e("Error", "Error de respuesta HTTP: " + responseCode);
@@ -83,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                 URL ImageUrl = new URL(imageUrl);
                 InputStream in = ImageUrl.openStream();
                 Bitmap bitmap = BitmapFactory.decodeStream(in);
-
-                // Mostrar la imagen en el ImageView en el hilo principal usando un Handler
                 handler.post(() -> imageView.setImageBitmap(bitmap));
             } catch (Exception e) {
                 Log.e("Error", Objects.requireNonNull(e.getMessage()));
